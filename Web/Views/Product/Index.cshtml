@@ -1,0 +1,103 @@
+﻿@{
+	Layout = "ProductLayout";
+}
+<div>
+	<nav style="--bs-breadcrumb-divider: '>'; padding-top: 10px; padding-left: 20px" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/Home">Trang chủ </a></li>
+			<li class="breadcrumb-item"><a href="/List">Makeup </a></li>
+			<li class="breadcrumb-item active" aria-current="page">Son môi Orione Beauty</li>
+		</ol>
+	</nav>
+	<div class="bg-white container-fluid" style="padding-top: 20px">
+		<div class="row">
+			<div class="col-3 container-fluid">
+				<img src="~/img/lipstick-item.jpg" class="img-fluid" />
+			</div>
+			<div class="col-9" style="padding-left: 80px">
+				<h2>Son môi Orione Beauty</h2>
+				<p>Đã bán: 0 | Đánh giá: 0</p>
+				<h4 style="color: coral">399.999đ</h4>				
+				<input type="button" name="addtocart" value="Thêm vào giỏ hàng" class="btn" style="color: white; background-color: coral; padding: 10px" />
+				<input type="button" name="buy" value="Mua ngay" class="btn" style="color: white; background-color: hotpink; padding: 10px" />
+			</div>
+		</div>
+		<ul class="nav nav-tabs" id="infoTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" aria-controls="profile" aria-selected="true">Thông tin</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="rating-tab" data-bs-toggle="tab" data-bs-target="#rating" type="button" aria-controls="rating" aria-selected="false">Đánh giá</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="using-tab" data-bs-toggle="tab" data-bs-target="#using" type="button" aria-controls="rating" aria-selected="false">Cách dùng</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="qna-tab" data-bs-toggle="tab" data-bs-target="#qna" type="button" aria-controls="rating" aria-selected="false">Hỏi đáp</button>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				<p>Son môi Orione Beauty với chất son mềm mịn, bền màu, giúp đôi môi bạn luôn tươi tắn và quyến rũ.</p>
+				<p>
+					<strong>Thông tin sản phẩm:</strong><br />
+					- Trọng lượng: 3.5g<br />
+					- Thành phần: Dầu dừa, sáp ong, vitamin E<br />
+					- Xuất xứ: Việt Nam
+				</p>
+				<p>
+					<strong>Hướng dẫn sử dụng:</strong><br />
+					- Thoa đều lên môi, có thể dùng cọ để tạo đường viền môi sắc nét.<br />
+					- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp.
+				</p>
+				<p>
+					<strong>Chính sách đổi trả:</strong><br />
+					- Đổi trả trong vòng 7 ngày nếu sản phẩm còn nguyên tem mác, chưa qua sử dụng.<br />
+					- Không áp dụng đổi trả với sản phẩm đã mở nắp hoặc không còn nguyên vẹn. <br />
+				</p>
+			</div>
+			<div class="tab-pane fade" id="rating" role="tabpanel" aria-labelledby="rating-tab">
+			</div>
+			<div class="tab-pane fade" id="using" role="tabpanel" aria-labelledby="using-tab">				
+				<p>
+					<strong>1. Chuẩn bị môi</strong> <br />
+				- Tẩy tế bào chết: Giúp môi mịn màng bằng cách dùng tẩy tế bào chết hoặc bàn chải mềm. <br />
+				- Dưỡng ẩm: Thoa son dưỡng để môi mềm, tránh tình trạng khô nứt.<br />
+					<strong>2. Thoa son môi</strong>
+				- Kẻ viền môi: Dùng chì kẻ viền để xác định khuôn môi, giúp son không bị lem.<br/>
+				- Thoa son: <br />
+				- Cách 1: Thoa trực tiếp từ thỏi son, bắt đầu từ trung tâm rồi tán đều ra ngoài. <br />
+				- Cách 2: Dùng cọ môi để thoa son, giúp kiểm soát lượng son tốt hơn. <br />
+				- Dặm màu: Để son lâu trôi, có thể dặm nhẹ một lớp khăn giấy, sau đó thoa thêm một lớp son.<br />
+				</p>
+
+			</div>
+			<div class="tab-pane fade" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+				<p>
+					<strong>1. Son môi có gây thâm môi không? </strong><br />
+					Son môi không phải lúc nào cũng gây thâm môi. Tuy nhiên, nếu sử dụng son kém chất lượng hoặc chứa chì, môi có thể bị ảnh hưởng. Để tránh tình trạng này, hãy chọn son có thành phần an toàn và dưỡng môi đầy đủ.<br />
+					<strong>2. Làm thế nào để son môi lâu trôi? </strong><br />
+					Bạn có thể áp dụng các mẹo sau để giữ son lâu trôi:<br />
+					- Dùng son lót: Giúp son bám tốt hơn.<br />
+					- Dặm khăn giấy: Sau lớp đầu tiên, dặm nhẹ môi lên khăn giấy rồi thoa thêm một lớp son.<br />
+					- Phủ phấn: Một lớp phấn phủ nhẹ giúp son giữ màu lâu hơn.<br />
+					<strong>3. Son dưỡng có cần thiết không? </strong><br />
+					Có! Son dưỡng giúp môi mềm mại, tránh khô nứt và hỗ trợ son màu lên đẹp hơn. Nếu môi bạn thường xuyên bị khô, hãy dùng son dưỡng trước khi thoa son màu.<br />
+					<strong>4. Son môi có hạn sử dụng không? </strong><br />
+					Có, son môi thường có hạn sử dụng từ 12-24 tháng tùy theo thành phần. Sau thời gian này, chất lượng son có thể giảm, màu sắc thay đổi hoặc có mùi lạ.<br />
+					<strong>5. Phụ nữ mang thai có thể dùng son môi không? </strong><br />
+					Có thể, nhưng nên chọn son có thành phần thiên nhiên, không chứa hóa chất độc hại. Nếu có nghi ngờ, hãy tham khảo ý kiến bác sĩ trước khi sử dụng.<br />
+
+				</p>
+			</div>
+		</div>
+
+		
+		<script>
+			var firstTabEl = document.querySelector('#infoTab li:last-child a')
+			var firstTab = new bootstrap.Tab(firstTabEl)
+
+			firstTab.show()
+		</script>
+	</div>
+</div>

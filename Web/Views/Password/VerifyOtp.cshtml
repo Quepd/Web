@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Xác nhận OTP";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<meta charset="utf-8" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link href="~/css/site.css" rel="stylesheet" />
+
+	<title>Orione Beauty</title>
+</head>
+<body>
+	<div style="background-color: #FF8A8C;">
+		<div class="container-fluid" style="padding: 0px 180px; padding-top: 10px; padding-bottom: 10px">
+			<div class="d-flex justify-content-between flex-row" style="padding-bottom: 10px">
+				<label class="text-white" style="font-size: 15px">
+					Kết nối
+					<a href="https://www.facebook.com/profile.php?id=61577093272980" style="text-decoration: none; color: white; font-size: small; padding-left: 5px"><img src="https://res.cloudinary.com/dzrpsjtid/image/upload/v1750176126/Facebook_Logo_Secondary_rczn9g.png" width="15" height="15" /></a>
+					<a href="https://www.instagram.com/orionebeauty/" style="text-decoration: none; color: white; font-size: small; padding-left: 5px"><img src="https://res.cloudinary.com/dzrpsjtid/image/upload/v1750175778/instagram_Glyph_White_i1am6m.png" width="15" height="15" /> </a>
+				</label>
+				<div>
+					@if (Context.Session.GetString("UserId") == null)
+					{
+						<a href="/Login" style="text-decoration: none; color: white; font-size: 15px"> Đăng nhập |</a>
+						<a href="/Login/Register" style="text-decoration: none; color: white; font-size: 15px"> Đăng ký </a>
+					}
+					else
+					{
+						<div class="dropdown">
+							<button type="button" id="AccountButton" aria-expanded="false" data-bs-toggle="dropdown" style="color: white; background-color: transparent; border: none">
+								<img src="https://res.cloudinary.com/dzrpsjtid/image/upload/v1750177658/account-icon_jz0bof.png" width="15" height="15" /> Xin chào, @Context.Session.GetString("UserName")
+							</button>
+
+							<ul class="dropdown-menu" aria-labelledby="AccountButton">
+								<li><a class="dropdown-item" href="/Profile">Thông tin tài khoản</a></li>
+								<li><a class="dropdown-item" href="/Cart">Giỏ hàng</a></li>
+								<li>
+									<form asp-controller="Login" asp-action="Logout" method="post" style="display:inline;">
+										<button type="submit" class="dropdown-item">
+											Đăng xuất
+										</button>
+									</form>
+								</li>
+							</ul>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<a href="/Home" style="text-decoration: none">
+						<div class="row">
+							<img class="col-3" src="~/img/logo-white.png" height="50" width="50" />
+							<h5 class="col-9" style="color: white; padding-top: 10px">ORIONE BEAUTY</h5>
+						</div>
+					</a>
+				</div>
+				<div class="container col-7">
+					<form class="row" method="get" action="/Search">
+						<div class="col-md-12">
+							<div class="input-group">
+								<input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+								<button class="btn btn-outline-light" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-1">
+					<div class="d-flex" style="padding-bottom: -5px">
+						<a href="/Cart">
+							<img src="https://res.cloudinary.com/dzrpsjtid/image/upload/v1750175778/cart-logo_xhzhq4.png" height="40" width="40" />
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div style="background-color: #FF8107">
+		<div class="container-fluid" style="padding: 0px 180px;">
+			<div class="d-flex justify-content-between">
+				<div>
+					<a href="/List" class="text-white btn hoverbtn" style="text-decoration: none;">Tất cả sản phẩm</a>
+					<a href="/List/Category/1" class="text-white btn hoverbtn" style="text-decoration: none;">Đồ Makeup</a>
+					<a href="/List/Category/2" class="text-white btn hoverbtn" style="text-decoration: none;">Chăm sóc da mặt</a>
+					<a href="/List/Category/3" class="text-white btn hoverbtn" style="text-decoration: none;">Chăm sóc cơ thể</a>
+					<a href="/List/Category/4" class="text-white btn hoverbtn" style="text-decoration: none;">Chăm sóc tóc</a>
+				</div>
+				<div>
+					<a href="/Blog" class="text-white btn hoverbtn" style="text-decoration: none;">Bài viết</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+		<div class="w-100" style="max-width: 420px;">
+			<form asp-action="VerifyOtp" method="post" class="p-4 shadow bg-white rounded-4 border border-light-subtle">
+				<h4 class="text-center mb-4 text-primary fw-bold">Xác nhận OTP</h4>
+
+				<div class="mb-3">
+					<label for="otp" class="form-label fw-semibold">Nhập mã OTP:</label>
+					<input type="text" id="otp" name="otp" class="form-control form-control-lg" placeholder="Nhập mã OTP bạn nhận được" required />
+				</div>
+
+				<div class="d-grid mt-3">
+					<button type="submit" class="btn btn-primary btn-lg">Xác nhận</button>
+				</div>
+				@if (ViewBag.Error != null)
+				{
+					<div class="alert alert-danger">@ViewBag.Error</div>
+				}
+			</form>
+
+
+		</div>
+	</div>
+
+
+
+
+	<script src="~/js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTJ95LH2QH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-QTJ95LH2QH');
+	</script>
+</body>
+</html>

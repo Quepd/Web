@@ -1,0 +1,155 @@
+﻿@model Web.Models.Product
+
+@{
+	Layout = "ProductLayout";
+	float totalRating = 0;
+	if (Model.ProductReviews.Count > 0)
+	{
+		foreach (var review in Model.ProductReviews)
+		{
+			totalRating += review.Rating;
+		}
+		totalRating = totalRating / Model.ProductReviews.Count;
+	}
+	int starRating = (int)Math.Ceiling(totalRating);
+}
+<div>
+	<nav style="--bs-breadcrumb-divider: '>'; padding-top: 10px; padding-left: 20px" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+			<li class="breadcrumb-item"><a href="#">Makeup</a></li>
+			<li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+		</ol>
+	</nav>
+
+	<div class="bg-white container-fluid" style="padding-top: 20px">
+		<div class="row">
+			<div class="col-3 container-fluid">
+				@if (Model.ProductImage != null && !string.IsNullOrEmpty(Model.ProductImage.ImageSrc))
+				{
+					<img src="@Model.ProductImage.ImageSrc" class="img-fluid" alt="@Model.Title" />
+				}
+				else
+				{
+					<img src="~/img/default-product.jpg" class="img-fluid" alt="No image" />
+				}
+			</div>
+			<div class="col-9 container-fluid" style="padding-left: 80px">
+				<h4>@Model.Title</h4>
+				<!-- Giả sử bạn có trường đánh giá trong model, nếu không có bạn có thể bỏ phần này hoặc sửa -->
+				<div data-coreui-precision="true" data-coreui-toggle="rating" data-coreui-value="4.7"></div>
+
+				<p style="color: coral">@Model.Price.ToString("N0") đ</p>
+				<form asp-controller="Cart" asp-action="Add" method="post">
+					<input type="hidden" name="productId" value="@Model.Id" />
+					<button type="submit" class="btn" style="color: white; background-color: coral; margin: 5px">
+						Thêm vào giỏ hàng
+					</button>
+				</form>
+
+				<input type="button" name="buy" value="Mua ngay" class="btn" style="color: white; background-color: hotpink; margin: 5px" />
+			</div>
+		</div>
+
+		<ul class="nav nav-tabs" id="infoTab" role="tablist" style="margin-top: 20px;">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" aria-controls="profile" aria-selected="true">Thông tin</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="rating-tab" data-bs-toggle="tab" data-bs-target="#rating" type="button" aria-controls="rating" aria-selected="false">Đánh giá</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="using-tab" data-bs-toggle="tab" data-bs-target="#using" type="button" aria-controls="using" aria-selected="false">Cách dùng</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="qna-tab" data-bs-toggle="tab" data-bs-target="#qna" type="button" aria-controls="qna" aria-selected="false">Hỏi đáp</button>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab" style="padding: 15px;">
+				@* Thông tin sản phẩm *@
+				<p>@Html.Raw(Model.Content)</p>
+			</div>
+			<div class="tab-pane fade" id="rating" role="tabpanel" aria-labelledby="rating-tab">
+				<div class="row">
+					<div class="col-5">
+						<div class="d-flex justify-content-evenly" style="padding-top: 15px">
+							<div style="color: #EE4D2D; font-size: 30px; font-weight: 300; padding-top: 10px">
+								<h4>Đánh giá: @totalRating / 5</h4>
+							</div>
+							<div class="text-center mb-5">
+								<div class="rating">
+									@for (int i = 5; i >= 1; i--)
+									{
+										if (i <= starRating)
+										{
+											<input type="radio" name="rating" value="@i" id="@i" readonly>
+
+											<label for="@i" class="filllabel-true">☆</label>
+										}
+										else
+										{
+											<input type="radio" name="rating" value="@i" id="@i" readonly>
+
+											<label for="@i" class="filllabel-false">☆</label>
+										}
+									}
+								</div>
+							</div>
+						</div>
+					</div>						
+				</div>
+				<div class="row">
+					@foreach (var review in Model.ProductReviews)
+					{
+						<div class="col-12" style="padding: 0px 50px">
+							<h5>@review.Title</h5>
+							<div class="minirating">
+								@for (int i = 5; i >= 1; i--)
+								{
+									if (i <= review.Rating)
+									{
+										<input type="radio" name="rating" value="@i" id="@i" readonly>
+
+										<label for="@i" class="filllabel-true">☆</label>
+									}
+									else
+									{
+										<input type="radio" name="rating" value="@i" id="@i" readonly>
+
+										<label for="@i" class="filllabel-false">☆</label>
+									}
+								}
+							</div>
+							<p style="color: lightgrey">@review.PublishedAt</p>
+							<p class="text-dark">@review.Content</p>
+							<hr/>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="using" role="tabpanel" aria-labelledby="using-tab">
+				@* Nội dung hướng dẫn sử dụng cụ thể hơn nếu cần *@
+			</div>
+			<div class="tab-pane fade" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+				@* Phần hỏi đáp (có thể thêm sau) *@
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Mở tab đầu tiên mặc định
+	var firstTabEl = document.querySelector('#infoTab button.nav-link.active')
+	var firstTab = new bootstrap.Tab(firstTabEl)
+	firstTab.show()
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTJ95LH2QH"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'G-QTJ95LH2QH');
+</script>

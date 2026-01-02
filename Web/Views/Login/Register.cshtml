@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "RegisterLayout";
+}
+
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+        <div class="alert alert-danger">@error.ErrorMessage</div>
+}
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTJ95LH2QH"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'G-QTJ95LH2QH');
+</script>

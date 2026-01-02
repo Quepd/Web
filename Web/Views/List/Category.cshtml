@@ -1,0 +1,40 @@
+﻿@model Web.ViewModels.PaginatedList<Web.Models.Product>
+@{
+    Layout = "ProductListLayout";
+    var title = ViewBag.CategoryName as string ?? "Tất cả sản phẩm";
+}
+
+
+<h3 class="mb-3">@title</h3>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-3 mb-4">
+            <div class="container">
+                <a href="/Product/@product.ProductId" style="text-decoration: none">
+                    <img src="~/img/Product/@(product.ProductImage?.ImageSrc ?? "default.png")"
+                         class="container-fluid hoverimg" alt="@product.Title" />
+                    <h5 class="text-truncate">@product.Title</h5>
+                    <p style="color: coral">
+                        @String.Format("{0:N0}đ", product.Price * (1 - (product.Discount ?? 0)))
+                    </p>
+                </a>
+            </div>
+        </div>
+    }
+   
+</div>
+@{
+    ViewBag.BaseUrl = "/List/Category/" + ViewBag.CategoryId;
+	ViewBag.QueryParams = new Dictionary<string, string>();
+}
+@await Html.PartialAsync("Pagination", Model)
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTJ95LH2QH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-QTJ95LH2QH');
+</script>

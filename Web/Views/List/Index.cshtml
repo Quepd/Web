@@ -1,0 +1,47 @@
+﻿@model Web.ViewModels.PaginatedList<Web.Models.Product>
+
+@{
+    Layout = "ProductListLayout";
+}
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var product in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <a href="@Url.Action("Detail", "Product", new { id = product.ProductId })" style="text-decoration: none; color: inherit;">
+                    @if (product.ProductImage != null)
+                    {
+                        <img src="@product.ProductImage.ImageSrc" class="card-img-top" alt="@product.Title" />
+                    }
+                    else
+                    {
+                        <img src="/images/default.jpg" class="card-img-top" alt="No image" />
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Title</h5>
+                        <p class="card-text">
+                            Giá: <strong>@product.Price.ToString("N0") VNĐ</strong><br />
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+   
+</div>
+@{
+    ViewBag.BaseUrl = "/List";
+    ViewBag.QueryParams = new Dictionary<string, string>();
+}
+@await Html.PartialAsync("Pagination", Model)
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTJ95LH2QH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-QTJ95LH2QH');
+</script>

@@ -1,0 +1,42 @@
+﻿@model Web.ViewModels.PaginatedList<Web.Models.Product>
+@{
+    var currentPage = Model.PageIndex;
+    var totalPages = Model.TotalPages;
+
+
+    var queryParams = Context.Request.Query
+        .Where(q => q.Key != "page")
+        .ToDictionary(q => q.Key, q => q.Value.ToString());
+
+    string GeneratePageUrl(int page)
+    {
+        var query = string.Join("&", queryParams.Select(q => $"{q.Key}={q.Value}"));
+        var prefix = query.Length > 0 ? $"?{query}&page={page}" : $"?page={page}";
+        return $"{Context.Request.Path}{prefix}";
+    }
+}
+
+@if (totalPages > 1)
+{
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@GeneratePageUrl(currentPage - 1)">Trước</a>
+                </li>
+
+                @for (var i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@GeneratePageUrl(i)">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@GeneratePageUrl(currentPage + 1)">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+
